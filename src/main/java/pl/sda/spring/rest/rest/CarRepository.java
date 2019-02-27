@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Repository
 public class CarRepository {
@@ -40,15 +41,15 @@ public class CarRepository {
         return cars.values();
     }
 
-    public Car findCar(int i) {
-        return cars.get(i);
+    public Optional<Car> findCar(int i) {
+        return Optional.of(cars.get(i));
     }
 
     public void storeCar(Car car) {
         cars.put(cars.keySet().size() + 1, car);
     }
 
-    public void deleteCar(int index) {
-        cars.remove(index);
+    public Car deleteCar(int index) {
+        return cars.remove(index);
     }
 }

@@ -22,7 +22,11 @@ public class CarService {
 
     public Car findCar(int i) {
         LOGGER.info("Getting car: {}", i);
-        return repository.findCar(i);
+        return repository.findCar(i).orElseThrow(() ->  {
+            String msg = String.format("Car with id: %s not found", i);
+            LOGGER.error(msg);
+            return new IllegalArgumentException(msg);
+        });
     }
 
     public void storeCar(Car car) {
@@ -32,6 +36,10 @@ public class CarService {
 
     public void deleteCar(int index) {
         LOGGER.warn("Deleting car {}", index);
-        repository.deleteCar(index);
+        if (repository.deleteCar(index) == null) {
+            String msg = String.format("Car with id: %s not found", index);
+            LOGGER.error(msg);
+            throw new IllegalArgumentException(msg);
+        }
     }
 }
