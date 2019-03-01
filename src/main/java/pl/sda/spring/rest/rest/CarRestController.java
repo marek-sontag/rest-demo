@@ -50,10 +50,10 @@ public class CarRestController {
         service.deleteCar(index);
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
+    @ExceptionHandler({IllegalArgumentException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public void handleIllegalArgument() {
-        LOGGER.error("Handling Illegal Argument Exception - returning 404");
+        LOGGER.error("Handling IllegalArgumentException - returning 404");
     }
 
     @ExceptionHandler(NumberFormatException.class)
